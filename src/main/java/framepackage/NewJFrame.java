@@ -110,27 +110,14 @@ public class NewJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here: 
-        boolean isWorking = true;
-        if (osName.contains("Linux")) {  
-            OS = "Linux";
-        } else if (osName.contains("Windows")) {  
-            OS = "Windows"; 
-        } else {
-            JOptionPane.showMessageDialog(jframe, "OS detection error - unknown system!");
-            isWorking = false;
-        }
+        // TODO add your handling code here:               
         quantity = (Integer) jSpinnerFlowersNumber.getValue();
         if (jRadioButtonFireflower.isSelected()) {
             choice = FIRE;
-            if(isWorking) {
-                startCheat();
-            }
+            startCheat();
         } else if (jRadioButtonIceFlower.isSelected()){
             choice = ICE;
-            if(isWorking) {
-                startCheat();
-            }
+            startCheat();
         } else {
             JOptionPane.showMessageDialog(jframe, "Empty choice!");  
         }  
@@ -189,6 +176,14 @@ public class NewJFrame extends javax.swing.JFrame {
         bgroupFlowers = new ButtonGroup();
         bgroupFlowers.add(jRadioButtonFireflower);
         bgroupFlowers.add(jRadioButtonIceFlower);
+        if (osName.contains("Linux")) {  
+            OS = "Linux";
+        } else if (osName.contains("Windows")) {  
+            OS = "Windows"; 
+        } else {
+            JOptionPane.showMessageDialog(jframe, "OS detection error - unknown system!");
+            System.exit(1);
+        }
     }    
 
 
