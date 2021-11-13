@@ -19,12 +19,24 @@ import java.nio.charset.StandardCharsets;
  */
 public class TuxFireflowCheat {
     
+    public final String ICE = "IceFlower";
+    public final String FIRE = "FireFlower";
+    private String choice;
+    private String OS;
+    private int quantity;
+    
+    public TuxFireflowCheat(String choice, String OS, int quantity) {
+        this.choice = choice;
+        this.OS = OS;
+        this.quantity = quantity;
+    }
+    
     public void startWork() throws Throwable {
         findPathToSettings();
-    }
-        
+    }        
     
     public void findPathToSettings() throws Throwable {
+        System.out.println("Quantity inside class=" + String.valueOf(quantity));
         //get path to jar executable
         String pathToExec = new File(TuxFireflowCheat.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath();
         int secondSlash = pathToExec.indexOf("/", pathToExec.indexOf("home/")+5);//slash after username in path
@@ -49,7 +61,7 @@ public class TuxFireflowCheat {
             if(resOfCheck!=-1) {
                 System.out.println("This file " + file.getName() + " should be corrected  " + resOfCheck + "    " + resOfCheckQuantity);
                 strToCorrect.replace(resOfCheck, resOfCheck+12, "bonus \"fireflower\"");
-                strToCorrect.replace((resOfCheckQuantity+18), (resOfCheckQuantity+19), "3");
+                strToCorrect.replace((resOfCheckQuantity+18), (resOfCheckQuantity+19), String.valueOf(quantity));
                 writeStringToFile(file.getAbsolutePath(), strToCorrect.toString());
             }
         }
