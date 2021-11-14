@@ -25,8 +25,6 @@ public class NewJFrame extends javax.swing.JFrame {
     private String choice;
     private String OS;
     private int quantity;
-    public final String ICE = "IceFlower";
-    public final String FIRE = "FireFlower";
     /**
      * Creates new form NewJFrame
      */
@@ -49,6 +47,11 @@ public class NewJFrame extends javax.swing.JFrame {
         jRadioButtonFireflower = new javax.swing.JRadioButton();
         jRadioButtonIceFlower = new javax.swing.JRadioButton();
         jSpinnerFlowersNumber = new javax.swing.JSpinner();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItemQuit = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItemAboutAuthor = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,11 +64,39 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
+        jRadioButtonFireflower.setSelected(true);
         jRadioButtonFireflower.setText("Fire flower");
 
         jRadioButtonIceFlower.setText("Ice flower");
 
         jSpinnerFlowersNumber.setModel(new javax.swing.SpinnerNumberModel(3, 0, 5, 1));
+
+        jMenu1.setText("File");
+
+        jMenuItemQuit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItemQuit.setText("Quit");
+        jMenuItemQuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemQuitActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemQuit);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Info");
+
+        jMenuItemAboutAuthor.setText("Author");
+        jMenuItemAboutAuthor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAboutAuthorActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemAboutAuthor);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -74,32 +105,31 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jSpinnerFlowersNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRadioButtonFireflower)
-                                    .addComponent(jRadioButtonIceFlower))
-                                .addGap(122, 122, 122)))))
+                        .addComponent(jSpinnerFlowersNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(79, 79, 79)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jRadioButtonIceFlower))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jRadioButtonFireflower))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(jLabel1)))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addContainerGap(19, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(44, 44, 44)
+                .addGap(41, 41, 41)
                 .addComponent(jRadioButtonFireflower)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jRadioButtonIceFlower)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSpinnerFlowersNumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -113,22 +143,29 @@ public class NewJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:               
         quantity = (Integer) jSpinnerFlowersNumber.getValue();
         if (jRadioButtonFireflower.isSelected()) {
-            choice = FIRE;
-            startCheat();
+            startCheat(tuxFireflowCheat.FIRE, quantity);
         } else if (jRadioButtonIceFlower.isSelected()){
-            choice = ICE;
-            startCheat();
+            startCheat(tuxFireflowCheat.ICE, quantity);
         } else {
             JOptionPane.showMessageDialog(jframe, "Empty choice!");  
         }  
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jMenuItemQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemQuitActionPerformed
+        // TODO add your handling code here:
+        System.exit(1);
+    }//GEN-LAST:event_jMenuItemQuitActionPerformed
+
+    private void jMenuItemAboutAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAboutAuthorActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(jframe, "Author: Max Barannyk\n\r	maxymbarannyk@gmail.com");
+    }//GEN-LAST:event_jMenuItemAboutAuthorActionPerformed
+
     
-    private void startCheat() {
+    private void startCheat(String choice, int quantity) {
         try {
-            tuxFireflowCheat = new TuxFireflowCheat(choice, "Linux", quantity);
-            tuxFireflowCheat.startWork();
+            tuxFireflowCheat.startWork(choice, quantity);
         } catch (Throwable ex) {
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -172,6 +209,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private void fillAllNecessaryData() {
         jframe = this;
         jframe.setTitle("Supertux cheater");
+        tuxFireflowCheat = new TuxFireflowCheat();
         osName = System.getProperty("os.name"); 
         bgroupFlowers = new ButtonGroup();
         bgroupFlowers.add(jRadioButtonFireflower);
@@ -190,6 +228,11 @@ public class NewJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItemAboutAuthor;
+    private javax.swing.JMenuItem jMenuItemQuit;
     private javax.swing.JRadioButton jRadioButtonFireflower;
     private javax.swing.JRadioButton jRadioButtonIceFlower;
     private javax.swing.JSpinner jSpinnerFlowersNumber;

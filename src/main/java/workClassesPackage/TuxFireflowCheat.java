@@ -19,26 +19,23 @@ import java.nio.charset.StandardCharsets;
  */
 public class TuxFireflowCheat {
     
-    public final String ICE = "IceFlower";
-    public final String FIRE = "FireFlower";
+    public final String FIRE = "fireflower";
+    public final String ICE = "iceflower";
     private String choice;
-    private String OS;
     private int quantity;
-    private String bonus;
-    private int offset;
+    private int offset;   
     
-    public TuxFireflowCheat(String choice, String OS, int quantity) {
-        this.choice = choice;
-        this.OS = OS;
-        this.quantity = quantity;
-        if (this.choice.equals(FIRE)){
-            this.bonus = "fireflower";
-        } else if(this.choice.equals(ICE)){
-            this.bonus = "iceflower";
-        }
+    public void setChoice(String value) {
+        this.choice = value;
     }
     
-    public void startWork() throws Throwable {
+    public void setQuantity(int value) {
+        this.quantity = value;
+    }
+    
+    public void startWork(String choiceIn, int quantityIn) throws Throwable {
+        setChoice(choiceIn);
+        setQuantity(quantityIn);
         findPathToSettings();
     }        
     
@@ -72,7 +69,7 @@ public class TuxFireflowCheat {
             int resOfCheckQuantity;
             if(resOfCheck != -1) {
                 System.out.println("This file " + file.getName() + " should be corrected  " + resOfCheck);
-                strToCorrect.replace(resOfCheck, resOfCheck + offsetForBonus, "bonus \"" + bonus + "\"");
+                strToCorrect.replace(resOfCheck, resOfCheck + offsetForBonus, "bonus \"" + choice + "\"");
                 
                 if(this.choice.equals(FIRE)){
                     resOfCheckQuantity = strToCorrect.indexOf("fireflowers");
