@@ -20,7 +20,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.mycompany.supertuxcheater.NewJFrame</mainClass>
+                            <mainClass>framepackage.NewJFrame</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
