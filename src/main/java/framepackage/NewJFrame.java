@@ -181,7 +181,7 @@ public class NewJFrame extends javax.swing.JFrame {
         } else if (osName.contains("Windows")) {  
             OS = "Windows"; 
         } else {
-            JOptionPane.showMessageDialog(jframe, "OS detection error - unknown system!");
+            JOptionPane.showMessageDialog(jframe, "Unsupported operation system! Exit!");
             System.exit(1);
         }
     }    

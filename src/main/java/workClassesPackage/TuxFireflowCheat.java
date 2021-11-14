@@ -24,11 +24,18 @@ public class TuxFireflowCheat {
     private String choice;
     private String OS;
     private int quantity;
+    private String bonus;
+    private int offset;
     
     public TuxFireflowCheat(String choice, String OS, int quantity) {
         this.choice = choice;
         this.OS = OS;
         this.quantity = quantity;
+        if (this.choice.equals(FIRE)){
+            this.bonus = "fireflower";
+        } else if(this.choice.equals(ICE)){
+            this.bonus = "iceflower";
+        }
     }
     
     public void startWork() throws Throwable {
@@ -39,8 +46,8 @@ public class TuxFireflowCheat {
         System.out.println("Quantity inside class=" + String.valueOf(quantity));
         //get path to jar executable
         String pathToExec = new File(TuxFireflowCheat.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath();
-        int secondSlash = pathToExec.indexOf("/", pathToExec.indexOf("home/")+5);//slash after username in path
-        String pathPlusNameOfUser = pathToExec.substring(0, secondSlash+1);//->/home/username/
+        int secondSlash = pathToExec.indexOf("/", pathToExec.indexOf("home/") + 5);//slash after username in path
+        String pathPlusNameOfUser = pathToExec.substring(0, secondSlash + 1);//->/home/username/
         work(pathPlusNameOfUser) ;
     }
 	  
@@ -53,15 +60,29 @@ public class TuxFireflowCheat {
         System.out.println("List of files and directories in the specified directory:");
         System.out.println(pathToDir);
         for(File file : filesList) {
-            System.out.println("File with name: "+file.getName() + " checked...");	         
+            System.out.println("File with name: " + file.getName() + " checked...");	         
             String filePath = file.getAbsolutePath();	   
             StringBuilder strToCorrect = new StringBuilder(readAllBytesJava7( filePath ));
+            int offsetForBonus = 12;
             int resOfCheck = strToCorrect.indexOf("bonus \"none\"");
-            int resOfCheckQuantity = strToCorrect.indexOf("fireflowers");
-            if(resOfCheck!=-1) {
-                System.out.println("This file " + file.getName() + " should be corrected  " + resOfCheck + "    " + resOfCheckQuantity);
-                strToCorrect.replace(resOfCheck, resOfCheck+12, "bonus \"fireflower\"");
-                strToCorrect.replace((resOfCheckQuantity+18), (resOfCheckQuantity+19), String.valueOf(quantity));
+            if(resOfCheck == -1) {
+                resOfCheck = strToCorrect.indexOf("bonus \"growup\"");
+                offsetForBonus = 14;
+            }            
+            int resOfCheckQuantity;
+            if(resOfCheck != -1) {
+                System.out.println("This file " + file.getName() + " should be corrected  " + resOfCheck);
+                strToCorrect.replace(resOfCheck, resOfCheck + offsetForBonus, "bonus \"" + bonus + "\"");
+                
+                if(this.choice.equals(FIRE)){
+                    resOfCheckQuantity = strToCorrect.indexOf("fireflowers");
+                    strToCorrect.replace((resOfCheckQuantity + 12), (resOfCheckQuantity + 13), String.valueOf(quantity));
+                } else {
+                    resOfCheckQuantity = strToCorrect.indexOf("iceflowers");
+                    strToCorrect.replace((resOfCheckQuantity + 11), (resOfCheckQuantity + 12), String.valueOf(quantity));
+                }
+                
+                
                 writeStringToFile(file.getAbsolutePath(), strToCorrect.toString());
             }
         }
