@@ -5,6 +5,7 @@
 package framepackage;
 
 
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import javax.swing.*;
 import java.util.*;
@@ -144,8 +145,8 @@ public class NewJFrame extends javax.swing.JFrame {
         quantity = (Integer) jSpinnerFlowersNumber.getValue();
         if (jRadioButtonFireflower.isSelected()) {
             startCheat(tuxFireflowCheat.FIRE, quantity);
-        } else if (jRadioButtonIceFlower.isSelected()){
-            startCheat(tuxFireflowCheat.ICE, quantity);
+        } else if (jRadioButtonIceFlower.isSelected()){            
+            startCheat(tuxFireflowCheat.ICE, quantity);            
         } else {
             JOptionPane.showMessageDialog(jframe, "Empty choice!");  
         }  
@@ -165,7 +166,7 @@ public class NewJFrame extends javax.swing.JFrame {
     
     private void startCheat(String choice, int quantity) {
         try {
-            tuxFireflowCheat.startWork(choice, quantity);
+            tuxFireflowCheat.startWork(choice, quantity, OS);
         } catch (Throwable ex) {
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }

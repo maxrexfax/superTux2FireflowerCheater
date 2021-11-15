@@ -24,6 +24,7 @@ public class TuxFireflowCheat {
     private String choice;
     private int quantity;
     private int offset;   
+    private String OS;
     
     public void setChoice(String value) {
         this.choice = value;
@@ -33,10 +34,20 @@ public class TuxFireflowCheat {
         this.quantity = value;
     }
     
-    public void startWork(String choiceIn, int quantityIn) throws Throwable {
+    public void setOs(String value) {
+        this.OS = value;
+    }
+    
+    public void startWork(String choiceIn, int quantityIn, String osIn) throws Throwable {
         setChoice(choiceIn);
         setQuantity(quantityIn);
-        findPathToSettings();
+        setOs(osIn);
+        if (osIn.contains("Linux")) {
+            findPathToSettings();
+        } else {
+           findPathToSettingsWindows();
+        }
+        
     }        
     
     public void findPathToSettings() throws Throwable {
@@ -45,13 +56,27 @@ public class TuxFireflowCheat {
         String pathToExec = new File(TuxFireflowCheat.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath();
         int secondSlash = pathToExec.indexOf("/", pathToExec.indexOf("home/") + 5);//slash after username in path
         String pathPlusNameOfUser = pathToExec.substring(0, secondSlash + 1);//->/home/username/
+        System.out.println("Path to config file:" + pathPlusNameOfUser);
         work(pathPlusNameOfUser) ;
+    }
+    
+    public void findPathToSettingsWindows() throws URISyntaxException {
+        String pathToExec = new File(TuxFireflowCheat.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath();
+        int secondSlash = pathToExec.indexOf("\\", pathToExec.indexOf("Users\\") + 6);//slash after username in path
+        String pathPlusNameOfUser = pathToExec.substring(0, secondSlash + 1);//->/home/username/
+        work(pathPlusNameOfUser);
     }
 	  
     public void work(String pathPlusNameOfUser) {
         //Creating a File object for directory	
-            String settingsFolder = ".local/share/supertux2/profile1/";
-            String pathToDir = pathPlusNameOfUser + settingsFolder;//path to settings for current user
+        String settingsFolder = null;
+        if(OS.contains("Windows")){
+            settingsFolder = "AppData\\Roaming\\SuperTux\\supertux2\\profile1\\";
+        } else {
+            settingsFolder = ".local/share/supertux2/profile1/";
+        }
+        
+        String pathToDir = pathPlusNameOfUser + settingsFolder;//path to settings for current user
         File directoryPath = new File(pathToDir);	      
         File filesList[] = directoryPath.listFiles();
         System.out.println("List of files and directories in the specified directory:");
@@ -113,4 +138,6 @@ public class TuxFireflowCheat {
             System.out.println(e.getMessage());
         }
     }
+
+    
 }
